@@ -6,5 +6,3 @@
 * [3.Spark SQL概述](3.Spark SQL概述.md)
 * [4.从Hive平滑过渡到Spark SQL](4.从Hive平滑过渡到SparkSQL.md)
 
-
-
