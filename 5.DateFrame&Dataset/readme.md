@@ -11,4 +11,4 @@ Spark诞生之初一个目标就是给大数据生态圈提供一个基于通用
 ## 2.DataFrame概述
 
 A Dataset is a distributed collection of data. - 分布式的数据集 
-A DataFrame is a Dataset organized into named columns.
+A DataFrame is a Dataset organized into named columns. - 以列的形式构成的分布式数据集
