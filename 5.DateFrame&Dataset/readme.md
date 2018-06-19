@@ -7,3 +7,5 @@ Spark诞生之初一个目标就是给大数据生态圈提供一个基于通用
 
 1.如果想使用SparkRDD进行编程，必须先学习Java，Scala，Python，成本较高
 2.R语言等的DataFrame只支持单机的处理，随着Spark的不断壮大，需要拥有更广泛的受众群体利用Spark进行分布式的处理。
+
+## 2.DataFrame概述
