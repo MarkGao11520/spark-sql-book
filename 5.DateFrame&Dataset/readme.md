@@ -14,3 +14,8 @@ A Dataset is a distributed collection of data. - 分布式的数据集
 A DataFrame is a Dataset organized into named columns.（RDD with Schema） - 以列（列名、列的类型、列值）的形式构成的分布式数据集，依据列赋予不同的名称
 
 It is conceptually equivalent to a table in a relational database or a data frame in R/Python.but with richer optimizations under the hood.
+
+![image.png](https://upload-images.jianshu.io/upload_images/7220971-f4cb3e7bc90eba7e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+## 3.
