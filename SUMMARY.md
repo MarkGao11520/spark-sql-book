@@ -9,8 +9,5 @@
     * [4.2 spark-shell/spark-sql的使用](4.从Hive平滑过渡到SparkSQL/4.2 spark-shell spark-sql的使用.md)
     * [4.3 thriftserver/beeline的使用](4.从Hive平滑过渡到SparkSQL/4.3 thriftserver beeline的使用.md)
     * [4.4 jdbc方式编程访问](4.从Hive平滑过渡到SparkSQL/4.4 jdbc方式编程访问.md)
-    
 * [5.DateFrame&Dataset](5.DateFrame&Dataset/readme.md)
-
-
 
