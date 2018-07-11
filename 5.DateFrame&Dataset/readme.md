@@ -51,6 +51,7 @@ spark.read.format("json").load("file:///Users/gaowenfeng/project/idea/MySparkSql
    *
    * @since 1.4.0
    */
+   // 返回的就是一个DataFrame
   def load(path: String): DataFrame = {
     option("path", path).load(Seq.empty: _*) // force invocation of `load(...varargs...)`
   }
