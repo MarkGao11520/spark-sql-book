@@ -130,6 +130,43 @@ object DataFrameApp {
 
 ## 5.DataFrame与RDD交互操作方式
 
+#### 1.通过反射的方式
+```scala
+package com.gwf.spark
+
+import org.apache.spark.sql.SparkSession
+
+/**
+  * DataFrameRDD的互操作
+  */
+object DataFrameRDDAPP {
+
+  def main(args: Array[String]): Unit = {
+    val spark = SparkSession.builder().appName("DataFrameRDDAPP").master("local[2]").getOrCreate()
+
+    val rdd = spark.sparkContext.textFile("file:///Users/gaowenfeng/project/idea/MySparkSqlProject/src/main/resources/infos.txt")
+
+    // 需要导入隐式转换
+    import spark.implicits._
+    val infoDf = rdd.map(_.split(",")).map(line => Info(line(0).toInt, line(1), line(2).toInt)).toDF()
+
+    infoDf.printSchema()
+
+    infoDf.filter(infoDf.col("age") > 30).show()
+
+    // Creates a local temporary view using the given name. The lifetime of this
+    // temporary view is tied to the [[SparkSession]] that was used to create this Dataset.
+    infoDf.createOrReplaceTempView("infos")
+
+    spark.sql("select * from infos where age > 30").show()
+  }
+
+  case class Info(id: Int, name: String, age: Int)
+
+}
+
+```
+
 
 
 
