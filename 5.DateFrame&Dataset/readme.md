@@ -35,14 +35,6 @@ DataFrame：也是一个分布式的数据集，他更像一个传统的数据�
 
 ![image.png](https://upload-images.jianshu.io/upload_images/7220971-1ea7a7148776e779.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-
-```
-val spark = SparkSession.builder()
-      .appName("DataFrameApp").master("local[2]").getOrCreate()
-    
-spark.read.format("json").load("file:///Users/gaowenfeng/project/idea/MySparkSqlProject")
-```
-
 看下load方法的源码
 ```
   /**
@@ -56,4 +48,84 @@ spark.read.format("json").load("file:///Users/gaowenfeng/project/idea/MySparkSql
     option("path", path).load(Seq.empty: _*) // force invocation of `load(...varargs...)`
   }
 ```
+
+
+
+```scala
+package com.gwf.spark
+
+import org.apache.spark.sql.SparkSession
+
+object DataFrameApp {
+
+  def main(args: Array[String]): Unit = {
+
+    val spark = SparkSession.builder()
+      .appName("DataFrameApp").master("local[2]").getOrCreate()
+
+    // 将json文件加载成一个dataframe
+    val peopleDF = spark.read.format("json").load("file:///Users/gaowenfeng/software/spark-2.2.0-bin-2.6.0-cdh5.7.0/examples/src/main/resources/people.json")
+
+    // 输出dataframe对应的schema信息
+    peopleDF.printSchema()
+    // root
+    // |-- age: long (nullable = true)
+    // |-- name: string (nullable = true)
+
+    // 输出数据集的前20条记录
+    peopleDF.show()
+//      +----+-------+
+//      | age|   name|
+//      +----+-------+
+//      |null|Michael|
+//      |  30|   Andy|
+//      |  19| Justin|
+//      +----+-------+
+
+    // 查询某列的所有数据   select name from table
+    peopleDF.select("name").show()
+//    +-------+
+//    |   name|
+//    +-------+
+//    |Michael|
+//    |   Andy|
+//    | Justin|
+//    +-------+
+
+    // 查询某几列所有的数据，并对列进行计算 select name, age+10 as age2 from table
+    peopleDF.select(peopleDF.col("name"),(peopleDF.col("age")+10).as("age2")).show()
+//      +-------+----+
+//      |   name|age2|
+//      +-------+----+
+//      |Michael|null|
+//      |   Andy|  40|
+//      | Justin|  29|
+//      +-------+----+
+
+    // 根据每一列的值进行过滤 select * from table where age > 19
+    peopleDF.filter(peopleDF.col("age")>19).show()
+//      +---+----+
+//      |age|name|
+//      +---+----+
+//      | 30|Andy|
+//      +---+----+
+
+    // 根据每一列的值进行分组，然后聚合 select age,count(1) from table group by age
+    peopleDF.groupBy("age").count().show()
+//      +----+-----+
+//      | age|count|
+//      +----+-----+
+//      |  19|    1|
+//      |null|    1|
+//      |  30|    1|
+//      +----+-----+
+
+    spark.stop()
+  }
+
+}
+
+```
+
+
 
