@@ -130,7 +130,12 @@ object DataFrameApp {
 
 ## 5.DataFrame与RDD交互操作方式
 
+![image.png](https://upload-images.jianshu.io/upload_images/7220971-759e6316214afd20.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
 #### 1.通过反射的方式
+
+前提：实现需要你知道你的字段，类型
 ```scala
 package com.gwf.spark
 
@@ -166,6 +171,30 @@ object DataFrameRDDAPP {
 }
 
 ```
+
+#### 2.编程方式
+
+如果第一种不能满足你的要求（事先不知道）
+
+```scala
+    val rdd = spark.sparkContext.textFile("file:///Users/gaowenfeng/project/idea/MySparkSqlProject/src/main/resources/infos.txt")
+
+    // 1.Create an RDD of Rows from the original RDD;
+    val infoRDD = rdd.map(_.split(",")).map(line => Row(line(0).toInt, line(1), line(2).toInt))
+
+    // 2.Create the schema represented by a StructType matching the structure of Rows in the RDD created in Step 1.
+    val structType = StructType(Array(
+      StructField("id",IntegerType, true),
+      StructField("name",StringType, true),
+      StructField("age",IntegerType, true)))
+
+    // 3.Apply the schema to the RDD of Rows via createDataFrame method provided by SparkSession.
+    val infoDF = spark.createDataFrame(infoRDD, structType)
+
+    infoDF.printSchema()
+```
+
+#### 3.选型，优先考虑第一种
 
 
 
