@@ -29,3 +29,30 @@ DataFrame：也是一个分布式的数据集，他更像一个传统的数据�
 从易用的角度来看，DataFrame的学习成本更低。由于R语言，Python都有DataFrame，所以开发起来很方便
 
 ![image.png](https://upload-images.jianshu.io/upload_images/7220971-7c37eb3a2b2624df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+## 4.DataFrame基本API操作
+
+![image.png](https://upload-images.jianshu.io/upload_images/7220971-1ea7a7148776e779.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+```
+val spark = SparkSession.builder()
+      .appName("DataFrameApp").master("local[2]").getOrCreate()
+    
+spark.read.format("json").load("file:///Users/gaowenfeng/project/idea/MySparkSqlProject")
+```
+
+看下load方法的源码
+```
+  /**
+   * Loads input in as a `DataFrame`, for data sources that require a path (e.g. data backed by
+   * a local or distributed file system).
+   *
+   * @since 1.4.0
+   */
+  def load(path: String): DataFrame = {
+    option("path", path).load(Seq.empty: _*) // force invocation of `load(...varargs...)`
+  }
+```
+
