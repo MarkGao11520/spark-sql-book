@@ -18,4 +18,14 @@ It is conceptually equivalent to a table in a relational database or a data fram
 ![image.png](https://upload-images.jianshu.io/upload_images/7220971-f4cb3e7bc90eba7e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-## 3.
+## 3.DataFrame和RDD的对比
+RDD：分布式的可以进行并行处理的集合
+    java/scala ==> JVM
+    python ==> python runtime
+
+DataFrame：也是一个分布式的数据集，他更像一个传统的数据库的表，他除了数据之外，还能知道列名，列的值，列的属性。他还能支持一下复杂的数据结构。
+    java/scala/python ==> logic plan
+
+从易用的角度来看，DataFrame的学习成本更低。由于R语言，Python都有DataFrame，所以开发起来很方便
+
+![image.png](https://upload-images.jianshu.io/upload_images/7220971-7c37eb3a2b2624df.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
