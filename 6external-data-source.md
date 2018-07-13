@@ -17,4 +17,12 @@ Spark SQL 1.2==>外部数据源API
 
 ## 2.目标
 
+- Developer:build libraries for various datasources
+- User: easy loading/savingDataFrames
+
+![image.png](https://upload-images.jianshu.io/upload_images/7220971-501832f4faeda09d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+    
+
+
 
