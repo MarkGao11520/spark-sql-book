@@ -14,3 +14,7 @@
 Spark SQL 1.2==>外部数据源API
 
 ![image.png](https://upload-images.jianshu.io/upload_images/7220971-e56dc58e971327c9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+## 2.目标
+
+
