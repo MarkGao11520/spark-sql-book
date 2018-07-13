@@ -81,5 +81,126 @@ object Parquet2JSONApp {
 
 ```
 
+## 4.操作Hive数据
+
+- spark.table("tableName")
+- df.write.saveAsTable(tableName)
+
+```sql
+spark.sql("'select deptno, count(1) from emp where group by deptno" ).filter("deptno is not null").write. saveAsTable("hive_ table_ 1")
+
+// 报错。需要给count(1)加别名
+org.apache.spark.sql.AnalysisException: Attribute name "count(1)" contains invalid character(s) among ",;[)()Xnt=". Please use alias to rename it.;
+
+spark.sql("'select deptno, count(1) as mount from emp where group by deptno" ).filter("deptno is not null").write. saveAsTable("hive_ table_ 1")
+
+// 或使用DataFrame
+
+spark.table("emp").filter("deptno is not null").groupBy("deptno").count.write.saveAsTable("hive_table")
+
+// 在生产环境中，一定要注意设置分区数量，默认为200
+// Configures the number of partitions to use when shuffling data for joins or aggregations.
+spark.sqlContext.setConf("spark.sql.shuffle.partitions","10")
+```
+
+
+
+## 5.操作Mysql数据
+
+```scala
+val jdbcDF = spark.read
+  .format("jdbc")
+  .option("url", "jdbc:postgresql:dbserver")
+  .option("dbtable", "schema.tablename")
+  .option("user", "username")
+  .option("password", "password")
+  .load()
+```
+
+常见问题
+
+```
+java.sql.SQLException: No suitable driver
+
+ The JDBC driver class must be visible to the primordial class 
+ loader on the client session and on all executors. This is because
+ Java’s DriverManager class does a security check that results in 
+ it ignoring all drivers not visible to the primordial class 
+ loader when one goes to open a connection. One convenient way to
+  do this is to modify compute_classpath.sh on all worker nodes to 
+  include your driver JARs.
+  
+Some databases, such as H2, convert all names to upper case. You’ll need to use upper case to refer to those names in Spark SQL.
+```
+
+添加driver的options
+
+```
+.option("driver", "com.mysql.jdbc.Driver")
+
+```
+
+
+第二种方式
+```scala
+import java.util.Properties
+val connectionProperties = new Properties()
+connectionProperties.put("user", "root")
+connectionProperties.put("password", "root")
+connectionProperties.put("driver", "com.mysql.jdbc.Driver")
+val jdbcDF2 = spark.read.jdbc("jdbc:mysql://localhost:3306/xunwu", "xunwu.house", connectionProperties)
+```
+
+写入数据库
+
+```scala
+// Saving data to a JDBC source
+jdbcDF.write
+  .format("jdbc")
+  .option("url", "jdbc:postgresql:dbserver")
+  .option("dbtable", "schema.tablename")
+  .option("user", "username")
+  .option("password", "password")
+  .save()
+
+jdbcDF2.write
+  .jdbc("jdbc:postgresql:dbserver", "schema.tablename", connectionProperties)
+
+// Specifying create table column data types on write
+jdbcDF.write
+  .option("createTableColumnTypes", "name CHAR(64), comments VARCHAR(1024)")
+  .jdbc("jdbc:postgresql:dbserver", "schema.tablename", connectionProperties)
+```
+
+```sql
+CREATE TEMPORARY VIEW jdbcTable
+USING org.apache.spark.sql.jdbc
+OPTIONS (
+  url "jdbc:postgresql:dbserver",
+  dbtable "schema.tablename",
+  user 'username',
+  password 'password'
+)
+
+INSERT INTO TABLE jdbcTable
+SELECT * FROM resultTable
+```
+
+## 6.Hive与Mysql数据库整合
+```scala
+  def main(args: Array[String]): Unit = {
+    val spark = SparkSession.builder().appName("HiveJdbcApp").master("local[2]").getOrCreate()
+
+    val hiveDf = spark.table("emp")
+
+    val mysqlDf = spark.read.format("jdbc").option("driver", "com.mysql.jdbc.Driver").option("url", "jdbc:mysql://localhost:3306/xunwu").option("dbtable", "xunwu.house").option("user", "root").option("password", "root").load()
+
+    val resultDf = hiveDf.join(mysqlDf, hiveDf.col("deptno") === mysqlDf.col("id")).select(hiveDf.col("ename"), mysqlDf.col("title"))
+
+    resultDf.show()
+    spark.close()
+
+  }
+```
 
 
