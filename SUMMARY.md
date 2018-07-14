@@ -17,5 +17,5 @@
   * [7.3 项目需求](7mu-ke-wang-ri-zhi-shi-zhan/73-xiang-mu-xu-qiu.md)
   * [7.4 Imooc日志内容构成](7mu-ke-wang-ri-zhi-shi-zhan/74-imoocri-zhi-nei-rong-gou-cheng.md)
   * [7.5 数据清洗之二清洗概述](7mu-ke-wang-ri-zhi-shi-zhan/75-shu-ju-qing-xi-zhi-er-qing-xi-gai-shu.md)
-  * 7.6 数据清洗之日志清洗
+  * [7.6 数据清洗之日志清洗](7mu-ke-wang-ri-zhi-shi-zhan/76-shu-ju-qing-xi-zhi-ri-zhi-qing-xi.md)
 
