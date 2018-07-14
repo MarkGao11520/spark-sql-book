@@ -26,3 +26,12 @@
       ).as("times_rank")
     ).filter("times_rank <=3") //.show(false)  //Top3
 ```
+
+实体
+
+```scala
+package com.imooc.log
+
+case class DayCityVideoAccessStat(day:String, cmsId:Long, city:String,times:Long,timesRank:Int)
+
+```
