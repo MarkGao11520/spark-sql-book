@@ -13,4 +13,5 @@
 * [6.External Data Source](6external-data-source.md)
 * [7.慕课网日志实战](7mu-ke-wang-ri-zhi-shi-zhan.md)
   * [7.1用户行为日志概述](7mu-ke-wang-ri-zhi-shi-zhan/91yong-hu-xing-wei-ri-zhi-gai-shu.md)
+  * 7.2 离线数据处理架构
 
