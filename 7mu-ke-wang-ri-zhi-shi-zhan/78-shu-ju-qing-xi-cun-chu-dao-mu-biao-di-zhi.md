@@ -1,6 +1,12 @@
 
 # 7.8  数据清洗存储到目标地址
 
+- #### 调优点：
+  1. 控制文件输出的大小： coalesce
+  2. 分区字段的数据类型调整：```spark.sql.sources.partitionColumnTypeInference.enabled```
+  3. 批量插入数据库数据，提交使用batch操作
+
+- #### 代码
 ```scala
 package com.imooc.log
 
