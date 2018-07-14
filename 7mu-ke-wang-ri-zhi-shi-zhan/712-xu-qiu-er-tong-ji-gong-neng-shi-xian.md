@@ -15,7 +15,8 @@
     //cityAccessTopNDF.show(false)
 
     //Window函数在Spark SQL的使用
-
+    // select day,city,cmsId,times,row_number() over(partition by city order by times desc) as times_rank
+    // from city_access_top where times_rank <=3
     val top3DF = cityAccessTopNDF.select(
       cityAccessTopNDF("day"),
       cityAccessTopNDF("city"),
