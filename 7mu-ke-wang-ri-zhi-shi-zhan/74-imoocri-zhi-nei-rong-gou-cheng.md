@@ -16,8 +16,9 @@ import org.apache.commons.lang3.time.FastDateFormat
  */
 object DateUtils {
 
-  //输入文件日期时间格式
-  //10/Nov/2016:00:01:02 +0800
+  // 输入文件日期时间格式
+  // 10/Nov/2016:00:01:02 +0800
+  // 不能用SimpleDataFormat 因为线程不安全
   val YYYYMMDDHHMM_TIME_FORMAT = FastDateFormat.getInstance("dd/MMM/yyyy:HH:mm:ss Z", Locale.ENGLISH)
 
   //目标日期格式
