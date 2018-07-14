@@ -4,6 +4,7 @@
 输出：URL、cmsType(video/article)、cmsId(编号)、流量、ip、城市信息、访问时间、天
 
 1. 日志解析对象编写
+
 ```scala
 package com.imooc.log
 
