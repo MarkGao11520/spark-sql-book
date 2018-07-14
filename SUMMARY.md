@@ -14,4 +14,5 @@
 * [7.慕课网日志实战](7mu-ke-wang-ri-zhi-shi-zhan.md)
   * [7.1用户行为日志概述](7mu-ke-wang-ri-zhi-shi-zhan/91yong-hu-xing-wei-ri-zhi-gai-shu.md)
   * [7.2 离线数据处理架构](7mu-ke-wang-ri-zhi-shi-zhan/72-li-xian-shu-ju-chu-li-jia-gou.md)
+  * 7.3 项目需求
 
