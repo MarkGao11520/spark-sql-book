@@ -30,21 +30,13 @@ object TopNStatJob {
 
     val accessDF = spark.read.format("parquet").load("/Users/gaowenfeng/project/idea/MySparkSqlProject/data/clean2")
 
-//    accessDF.printSchema()
-//    accessDF.show(false)
+    accessDF.printSchema()
+    accessDF.show(false)
 
-    val day = "20170511"
 
-    StatDAO.deleteData(day)
 
     //最受欢迎的TopN课程
     videoAccessTopNStat(spark, accessDF, day)
-
-    //按照地市进行统计TopN课程
-    cityAccessTopNStat(spark, accessDF, day)
-
-    //按照流量进行统计
-    videoTrafficsTopNStat(spark, accessDF, day)
 
     spark.stop()
   }
@@ -74,7 +66,6 @@ object TopNStatJob {
           list.append(DayVideoTrafficsStat(day, cmsId,traffics))
         })
 
-        StatDAO.insertDayVideoTrafficsAccessTopN(list)
       })
     } catch {
       case e:Exception => e.printStackTrace()
@@ -82,54 +73,9 @@ object TopNStatJob {
 
   }
 
-  /**
-   * 按照地市进行统计TopN课程
-   */
-  def cityAccessTopNStat(spark: SparkSession, accessDF:DataFrame, day:String): Unit = {
-    import spark.implicits._
+  
 
-    val cityAccessTopNDF = accessDF.filter($"day" === day && $"cmsType" === "video")
-    .groupBy("day","city","cmsId")
-    .agg(count("cmsId").as("times"))
-
-    //cityAccessTopNDF.show(false)
-
-    //Window函数在Spark SQL的使用
-
-    val top3DF = cityAccessTopNDF.select(
-      cityAccessTopNDF("day"),
-      cityAccessTopNDF("city"),
-      cityAccessTopNDF("cmsId"),
-      cityAccessTopNDF("times"),
-      row_number().over(Window.partitionBy(cityAccessTopNDF("city"))
-      .orderBy(cityAccessTopNDF("times").desc)
-      ).as("times_rank")
-    ).filter("times_rank <=3") //.show(false)  //Top3
-
-
-    /**
-     * 将统计结果写入到MySQL中
-     */
-    try {
-      top3DF.foreachPartition(partitionOfRecords => {
-        val list = new ListBuffer[DayCityVideoAccessStat]
-
-        partitionOfRecords.foreach(info => {
-          val day = info.getAs[String]("day")
-          val cmsId = info.getAs[Long]("cmsId")
-          val city = info.getAs[String]("city")
-          val times = info.getAs[Long]("times")
-          val timesRank = info.getAs[Int]("times_rank")
-          list.append(DayCityVideoAccessStat(day, cmsId, city, times, timesRank))
-        })
-
-        StatDAO.insertDayCityVideoAccessTopN(list)
-      })
-    } catch {
-      case e:Exception => e.printStackTrace()
-    }
-
-  }
+ 
 
 
     /**
