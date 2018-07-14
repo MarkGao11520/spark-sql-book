@@ -16,4 +16,5 @@
   * [7.2 离线数据处理架构](7mu-ke-wang-ri-zhi-shi-zhan/72-li-xian-shu-ju-chu-li-jia-gou.md)
   * [7.3 项目需求](7mu-ke-wang-ri-zhi-shi-zhan/73-xiang-mu-xu-qiu.md)
   * [7.4 Imooc日志内容构成](7mu-ke-wang-ri-zhi-shi-zhan/74-imoocri-zhi-nei-rong-gou-cheng.md)
+  * [7.5 数据清洗之二清洗概述](7mu-ke-wang-ri-zhi-shi-zhan/75-shu-ju-qing-xi-zhi-er-qing-xi-gai-shu.md)
 
