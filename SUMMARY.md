@@ -20,4 +20,5 @@
   * [7.6 数据清洗之日志清洗](7mu-ke-wang-ri-zhi-shi-zhan/76-shu-ju-qing-xi-zhi-ri-zhi-qing-xi.md)
   * [7.7 数据清洗之ip地址解析](7mu-ke-wang-ri-zhi-shi-zhan/77-shu-ju-qing-xi-zhi-ip-di-zhi-jie-xi.md)
   * [7.8  数据清洗存储到目标地址](7mu-ke-wang-ri-zhi-shi-zhan/78-shu-ju-qing-xi-cun-chu-dao-mu-biao-di-zhi.md)
+  * [7.9 需求一统计功能实现](7mu-ke-wang-ri-zhi-shi-zhan/79-xu-qiu-yi-tong-ji-gong-neng-shi-xian.md)
 
