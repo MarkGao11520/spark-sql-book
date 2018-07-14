@@ -22,4 +22,5 @@
   * [7.8  数据清洗存储到目标地址](7mu-ke-wang-ri-zhi-shi-zhan/78-shu-ju-qing-xi-cun-chu-dao-mu-biao-di-zhi.md)
   * [7.9 需求一统计功能实现](7mu-ke-wang-ri-zhi-shi-zhan/79-xu-qiu-yi-tong-ji-gong-neng-shi-xian.md)
   * [7.10 Scala操作Mysql工具类开发](7mu-ke-wang-ri-zhi-shi-zhan/710-scalacao-zuo-mysql-gong-ju-lei-kai-fa.md)
+  * [7.11 需求一统计结果写入到MySQL](7mu-ke-wang-ri-zhi-shi-zhan/711-xu-qiu-yi-tong-ji-jie-guo-xie-ru-dao-mysql.md)
 
