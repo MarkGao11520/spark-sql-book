@@ -28,6 +28,14 @@ primary key (day, cms_id)
 );
 ```
 
+实体类
+```scala
+package com.imooc.log
+
+case class DayCityVideoAccessStat(day:String, cmsId:Long, city:String,times:Long,timesRank:Int)
+
+```
+
 各个维度统计的DAO操作
 ```scala
 /**
