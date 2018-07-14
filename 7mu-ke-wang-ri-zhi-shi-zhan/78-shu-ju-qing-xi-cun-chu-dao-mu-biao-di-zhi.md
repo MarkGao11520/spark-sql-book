@@ -45,7 +45,26 @@ object SparkStatCleanJob {
 
 ```
 
+textFile 方法
+```scala
+  /**
+   * Read a text file from HDFS, a local file system (available on all nodes), or any
+   * Hadoop-supported file system URI, and return it as an RDD of Strings.
+   * @param path path to the text file on a supported file system
+   * @param minPartitions suggested minimum number of partitions for the resulting RDD
+   * @return RDD of lines of the text file
+   */
+  def textFile(
+      path: String,
+      minPartitions: Int = defaultMinPartitions): RDD[String] = withScope {
+    assertNotStopped()
+    hadoopFile(path, classOf[TextInputFormat], classOf[LongWritable], classOf[Text],
+      minPartitions).map(pair => pair._2.toString).setName(path)
+  }
 ```
+
+coalesce 方法
+```scala
   /**
    * Returns a new Dataset that has exactly `numPartitions` partitions, when the fewer partitions
    * are requested. If a larger number of partitions is requested, it will stay at the current
